@@ -1,7 +1,7 @@
-TaskManager Pro
+TaskManager 
 ===============
 
-TaskManager Pro is a full-stack task management system tailored for teams working within organizational boundaries. It features real-time updates, clean user roles, and a notification system designed to keep users informed of task activities.
+TaskManager is a full-stack task management system tailored for teams working within organizational boundaries. It features real-time updates, clean user roles, and a notification system designed to keep users informed of task activities.
 
 Features
 --------
