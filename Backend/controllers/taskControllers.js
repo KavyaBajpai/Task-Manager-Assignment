@@ -3,7 +3,6 @@ import { tasks, users } from "../schema/schema.js";
 import { attachments, taskRelations, attachmentRelations } from "../schema/schema.js";
 import { eq, and } from "drizzle-orm";
 import { sendNotification } from '../utils/notifyer.js'
-import fs from "fs";
 
 export const createTask = async (req, res) => {
   const db = await connectToDB();
@@ -277,9 +276,9 @@ export const deleteTask = async (req, res) => {
     }
 
     
-    task.attachments.forEach((file) => {
-      if (fs.existsSync(file.fileUrl)) fs.unlinkSync(file.fileUrl);
-    });
+    // task.attachments.forEach((file) => {
+    //   if (fs.existsSync(file.fileUrl)) fs.unlinkSync(file.fileUrl);
+    // });
 
     
     await db.delete(tasks).where(eq(tasks.id, taskId));

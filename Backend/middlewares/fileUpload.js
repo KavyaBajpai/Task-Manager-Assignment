@@ -1,27 +1,15 @@
-import multer from "multer";
-import path from "path";
-import fs from "fs";
+import multer from 'multer';
+import { CloudinaryStorage } from 'multer-storage-cloudinary';
+import cloudinary from '../config/cloudinary.js';
 
-const uploadDir = "./uploads";
-if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir);
-
-const storage = multer.diskStorage({
-  destination: (_, __, cb) => cb(null, uploadDir),
-  filename: (_, file, cb) => {
-    const timestamp = Date.now();
-    cb(null, `${timestamp}-${file.originalname}`);
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: 'task-manager',
+    allowed_formats: ['jpg', 'png', 'jpeg', 'pdf', 'docx'],
   },
 });
 
-const fileFilter = (req, file, cb) => {
-  if (path.extname(file.originalname) !== ".pdf") {
-    return cb(new Error("Only PDF files allowed!"), false);
-  }
-  cb(null, true);
-};
+const upload = multer({ storage });
 
-export const uploadFiles = multer({
-  storage,
-  fileFilter,
-  limits: { files: 3 },
-}).array("attachments", 3); // <--- field name in form
+export default upload;
