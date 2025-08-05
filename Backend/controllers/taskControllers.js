@@ -24,25 +24,26 @@ export const createTask = async (req, res) => {
       organizationId: currentUser[0].organizationId,
     }).returning();
     
-    await sendNotification(assignedTo, "You have been assigned a new task: ${title}");
+    await sendNotification(assignedTo, `You have been assigned a new task: ${title}`);
   
-    if (req.files && req.files.length > 0) {
-      const existing = await db.query.attachments.findMany({
-        where: eq(attachments.taskId, task.id),
-      });
+    // if (req.files && req.files.length > 0) 
+    //   {
+    //   const existing = await db.query.attachments.findMany({
+    //     where: eq(attachments.taskId, task.id),
+    //   });
 
-      if (existing.length + req.files.length > 3) {
-        return res.status(400).json({ error: "Max 3 attachments allowed" });
-      }
+    //   if (existing.length + req.files.length > 3) {
+    //     return res.status(400).json({ error: "Max 3 attachments allowed" });
+    //   }
 
-      const toInsert = req.files.map((file) => ({
-        taskId: task.id,
-        fileName: file.originalname,
-        fileUrl: file.path,
-      }));
+    //   const toInsert = req.files.map((file) => ({
+    //     taskId: task.id,
+    //     fileName: file.originalname,
+    //     fileUrl: file.path,
+    //   }));
 
-      await db.insert(attachments).values(toInsert);
-    }
+    //   await db.insert(attachments).values(toInsert);
+    // }
 
     res.status(201).json({ message: "Task created", task });
   } catch (err) {
@@ -227,25 +228,25 @@ export const updateTask = async (req, res) => {
       .returning();
     
       console.log("sending notification at line 129")
-    await sendNotification(task.assignedTo, "Task ${task.title} has been updated.")
+    await sendNotification(task.assignedTo, `Task ${task.title} has been updated.`)
       console.log("notification sent at line 131")
-    if (req.files && req.files.length > 0) {
-      const existing = await db.query.attachments.findMany({
-        where: eq(attachments.taskId, taskId),
-      });
+    // if (req.files && req.files.length > 0) {
+    //   const existing = await db.query.attachments.findMany({
+    //     where: eq(attachments.taskId, taskId),
+    //   });
 
-      if (existing.length + req.files.length > 3) {
-        return res.status(400).json({ error: "Cannot exceed 3 total attachments" });
-      }
+    //   if (existing.length + req.files.length > 3) {
+    //     return res.status(400).json({ error: "Cannot exceed 3 total attachments" });
+    //   }
 
-      const toInsert = req.files.map((file) => ({
-        taskId,
-        fileName: file.originalname,
-        fileUrl: file.path,
-      }));
+    //   const toInsert = req.files.map((file) => ({
+    //     taskId,
+    //     fileName: file.originalname,
+    //     fileUrl: file.path,
+    //   }));
 
-      await db.insert(attachments).values(toInsert);
-    }
+    //   await db.insert(attachments).values(toInsert);
+    // }
 
     res.status(201).json({ message: "Task updated successfully" });
   } catch (err) {
@@ -283,7 +284,7 @@ export const deleteTask = async (req, res) => {
     
     await db.delete(tasks).where(eq(tasks.id, taskId));
     
-    await sendNotification(task.assignedTo, "Task ${task.title} has been deleted.")
+    await sendNotification(task.assignedTo, `Task ${task.title} has been deleted.`)
 
     res.json({ message: "Task deleted successfully" });
   } catch (err) {
