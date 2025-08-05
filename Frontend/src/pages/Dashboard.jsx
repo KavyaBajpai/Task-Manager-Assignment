@@ -18,7 +18,8 @@ function Dashboard() {
   const fetchTasks = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:5000/api/tasks/getUserTasks", {
+      const baseUrl = import.meta.env.VITE_API_BASE_URL;
+      const response = await fetch(`${baseUrl}/api/tasks/getUserTasks`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -41,7 +42,7 @@ function Dashboard() {
   const handleToggleTask = async (taskId, currentStatus) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`http://localhost:5000/api/tasks/toggle/${taskId}`, {
+      const response = await fetch(`${baseUrl}/api/tasks/toggle/${taskId}`, {
         method: "PATCH",
         headers: {
           Authorization: `Bearer ${token}`,

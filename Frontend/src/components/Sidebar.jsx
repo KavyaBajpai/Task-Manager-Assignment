@@ -15,7 +15,8 @@ function Sidebar() {
   const fetchUnreadCount = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:5000/api/notifications/unreadCount", {
+      const baseUrl = import.meta.env.VITE_API_BASE_URL;
+      const response = await fetch(`${baseUrl}/api/notifications/unreadCount`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

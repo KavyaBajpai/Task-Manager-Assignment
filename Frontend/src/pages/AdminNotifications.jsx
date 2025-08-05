@@ -13,7 +13,8 @@ function AdminNotifications() {
   const fetchNotifications = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:5000/api/notifications/getAll", {
+      const baseUrl = import.meta.env.VITE_API_BASE_URL;
+      const response = await fetch(`${baseUrl}/api/notifications/getAll`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -37,7 +38,7 @@ function AdminNotifications() {
 
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`http://localhost:5000/api/notifications/${notificationId}`, {
+      const response = await fetch(`${baseUrl}/api/notifications/${notificationId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,

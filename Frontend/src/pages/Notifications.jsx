@@ -12,7 +12,8 @@ function Notifications() {
   const fetchNotifications = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:5000/api/notifications/getAll", {
+      const baseUrl = import.meta.env.VITE_API_BASE_URL;
+      const response = await fetch(`${baseUrl}/api/notifications/getAll`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -36,7 +37,7 @@ function Notifications() {
   const markAllAsRead = async () => {
     try {
       const token = localStorage.getItem("token");
-      await fetch("http://localhost:5000/api/notifications/mark-all", {
+      await fetch(`${baseUrl}/api/notifications/mark-all`, {
         method: "PATCH",
         headers: {
           Authorization: `Bearer ${token}`,

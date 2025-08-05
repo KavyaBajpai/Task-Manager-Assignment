@@ -23,7 +23,8 @@ function Tasks() {
   const fetchTasks = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:5000/api/tasks/getUserTasks", {
+      const baseUrl = import.meta.env.VITE_API_BASE_URL;
+      const response = await fetch(`${baseUrl}/api/tasks/getUserTasks`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -45,7 +46,7 @@ function Tasks() {
   const handleToggleTask = async (taskId, currentStatus) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`http://localhost:5000/api/tasks/toggle/${taskId}`, {
+      const response = await fetch(`${baseUrl}/api/tasks/toggle/${taskId}`, {
         method: "PATCH",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -68,8 +69,8 @@ function Tasks() {
     e.preventDefault();
     const token = localStorage.getItem("token");
     const url = editingTask
-      ? `http://localhost:5000/api/tasks/update/${editingTask.id}`
-      : "http://localhost:5000/api/tasks/create";
+      ? `${baseUrl}/api/tasks/update/${editingTask.id}`
+      : `${baseUrl}/api/tasks/create`;
     const method = editingTask ? "PUT" : "POST";
 
     try {
@@ -102,7 +103,7 @@ function Tasks() {
 
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`http://localhost:5000/api/tasks/delete/${taskId}`, {
+      const response = await fetch(`${baseUrl}/api/tasks/delete/${taskId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,

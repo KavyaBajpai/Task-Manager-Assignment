@@ -18,7 +18,8 @@ function AdminUsers() {
   const fetchUsers = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:5000/api/user/getAll", {
+      const baseUrl = import.meta.env.VITE_API_BASE_URL;
+      const response = await fetch(`${baseUrl}/api/user/getAll`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -41,7 +42,7 @@ function AdminUsers() {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`http://localhost:5000/api/user/update/${editingUser.id}`, {
+      const response = await fetch(`${baseUrl}/api/user/update/${editingUser.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -70,7 +71,7 @@ function AdminUsers() {
 
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`http://localhost:5000/api/user/delete/${userId}`, {
+      const response = await fetch(`${baseUrl}/api/user/delete/${userId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,

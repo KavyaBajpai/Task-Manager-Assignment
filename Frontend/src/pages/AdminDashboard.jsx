@@ -22,14 +22,15 @@ function AdminDashboard() {
       const user = JSON.parse(localStorage.getItem("user") || "{}");
       
       // Fetch all tasks for admin (organization-filtered)
-      const tasksResponse = await fetch("http://localhost:5000/api/tasks/getAll", {
+      const baseUrl = import.meta.env.VITE_API_BASE_URL;
+      const tasksResponse = await fetch(`${baseUrl}/api/tasks/getAll`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
       // Fetch all users (organization-filtered)
-      const usersResponse = await fetch("http://localhost:5000/api/user/getAll", {
+      const usersResponse = await fetch(`${baseUrl}/api/user/getAll`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -49,10 +50,10 @@ function AdminDashboard() {
           totalTasks,
           completedTasks,
           pendingTasks,
-          totalNotifications: 0, // You can add notification stats if needed
+          totalNotifications: 0, 
         });
 
-        // Set organization info (you can fetch this from backend if needed)
+        
         setOrganization({
           name: user.organizationName || "Your Organization",
           description: "Organization-specific data and management"
