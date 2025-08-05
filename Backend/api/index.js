@@ -21,8 +21,8 @@ app.use('/api/tasks', taskRouter)
 app.use('/api/user', userRouter)
 app.use('/api/notifications', notificationRouter)
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`Server running on port ${PORT}`);
+// });
 
 export default app;
