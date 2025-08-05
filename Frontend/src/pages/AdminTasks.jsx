@@ -19,6 +19,15 @@ function AdminTasks() {
   });
 
   useEffect(() => {
+  console.log("Env Test:", import.meta.env.VITE_API_BASE_URL);
+  fetch(`${import.meta.env.VITE_API_BASE_URL}/api/healthcheck`)
+    .then(res => res.text())
+    .then(data => console.log("API Healthcheck response:", data))
+    .catch(err => console.error("API Healthcheck failed:", err));
+}, []);
+
+
+  useEffect(() => {
     fetchTasks();
     fetchUsers();
   }, []);

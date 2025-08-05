@@ -20,6 +20,9 @@ app.use('/api/auth', authRouter)
 app.use('/api/tasks', taskRouter)
 app.use('/api/user', userRouter)
 app.use('/api/notifications', notificationRouter)
+app.get("/api/healthcheck", (req, res) => {
+  res.send("Backend is alive");
+});
 
 // app.listen(PORT, () => {
 //   console.log(`Server running on port ${PORT}`);
