@@ -23,6 +23,8 @@ function Tasks() {
   const fetchTasks = async () => {
     try {
       const token = localStorage.getItem("token");
+      console.log("Base URL:", import.meta.env.VITE_API_BASE_URL);
+
       const baseUrl = import.meta.env.VITE_API_BASE_URL;
       const response = await fetch(`${baseUrl}/api/tasks/getUserTasks`, {
         headers: {
