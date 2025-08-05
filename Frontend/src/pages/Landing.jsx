@@ -91,7 +91,7 @@ function Landing() {
 
             {/* Footer */}
             <div className="mt-16 text-blue-100 text-sm">
-              <p>© 2024 TaskMaster. All rights reserved.</p>
+              <p>© 2025 TaskMaster. All rights reserved.</p>
             </div>
           </div>
         </div>
