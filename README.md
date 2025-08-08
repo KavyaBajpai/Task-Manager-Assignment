@@ -118,6 +118,10 @@ Setup Instructions
 
 Access app at http://localhost:5173
 
+Demo Video Link
+-------------
+https://www.loom.com/share/d839a7d447284e7dba56e70338eab8b7
+
 Deployed Link
 -------------
-
+https://task-manager-assignment-frontend-kohl.vercel.app/
