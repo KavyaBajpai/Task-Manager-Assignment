@@ -7,10 +7,10 @@ import { eq } from "drizzle-orm";
 export const registerUser = async (req, res) => {
   const { email, password, role, organizationId } = req.body;
   const db = await connectToDB();
-  const hashed = await bcrypt.hash(password, 10);
 
   try {
-    // If no organizationId provided, assign to the first organization (for demo purposes)
+    const hashed = await bcrypt.hash(password, 10);
+
     let orgId = organizationId;
     if (!orgId) {
       const firstOrg = await db.select().from(organizations).limit(1);
@@ -20,15 +20,40 @@ export const registerUser = async (req, res) => {
       orgId = firstOrg[0].id;
     }
 
-    await db.insert(users).values({ 
-      email, 
-      password: hashed, 
-      role,
-      organizationId: orgId
+    // Insert new user
+    const insertedUsers = await db
+      .insert(users)
+      .values({
+        email,
+        password: hashed,
+        role,
+        organizationId: orgId,
+      })
+      .returning(); 
+
+    const user = insertedUsers[0];
+
+    // Generate token
+    const token = jwt.sign(
+      { id: user.id, email: user.email, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
+    );
+
+   
+    const { password: _, ...userWithoutPassword } = user;
+
+    res.status(201).json({
+      message: "User registered successfully!",
+      token,
+      user: userWithoutPassword,
     });
-    res.status(201).json({ message: "User registered!" });
   } catch (err) {
-    res.status(500).json({ error: "Email might already exist", message: err });
+    console.error(err);
+    res.status(500).json({
+      error: "Registration failed. Email might already exist.",
+      message: err.message,
+    });
   }
 };
 

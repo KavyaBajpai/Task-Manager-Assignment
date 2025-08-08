@@ -24,8 +24,8 @@ app.get("/api/healthcheck", (req, res) => {
   res.send("Backend is alive");
 });
 
-// app.listen(PORT, () => {
-//   console.log(`Server running on port ${PORT}`);
-// });
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
 
 export default app;

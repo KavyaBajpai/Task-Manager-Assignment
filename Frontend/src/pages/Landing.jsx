@@ -78,13 +78,13 @@ function Landing() {
                   onClick={() => navigate("/login")}
                   className="bg-white text-blue-600 font-semibold px-8 py-3 rounded-lg shadow-lg hover:bg-gray-100 transition-all duration-200 transform hover:scale-105"
                 >
-                  Get Started
+                  Login
                 </button>
                 <button
-                  onClick={() => navigate("/login")}
+                  onClick={() => navigate("/signup")}
                   className="bg-transparent text-white font-semibold px-8 py-3 rounded-lg border-2 border-white/30 hover:bg-white/10 transition-all duration-200 backdrop-blur-sm"
                 >
-                  Sign In
+                  Sign Up
                 </button>
               </div>
             </div>

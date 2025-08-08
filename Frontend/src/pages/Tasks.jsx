@@ -70,6 +70,7 @@ function Tasks() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
+    const baseUrl = import.meta.env.VITE_API_BASE_URL;
     const url = editingTask
       ? `${baseUrl}/api/tasks/update/${editingTask.id}`
       : `${baseUrl}/api/tasks/create`;
@@ -105,6 +106,7 @@ function Tasks() {
 
     try {
       const token = localStorage.getItem("token");
+      const baseUrl = import.meta.env.VITE_API_BASE_URL;
       const response = await fetch(`${baseUrl}/api/tasks/delete/${taskId}`, {
         method: "DELETE",
         headers: {
@@ -351,6 +353,7 @@ function Tasks() {
                 </label>
                 <input
                   type="date"
+                  required
                   value={formData.dueDate}
                   onChange={(e) => setFormData({ ...formData, dueDate: e.target.value })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"

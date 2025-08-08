@@ -36,7 +36,7 @@ function AdminTasks() {
     try {
       const token = localStorage.getItem("token");
       const baseUrl = import.meta.env.VITE_API_BASE_URL;
-
+      console.log("baseUrl from tasks page: ", baseUrl);
       const response = await fetch(`${baseUrl}/api/tasks/getAll`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -59,6 +59,7 @@ function AdminTasks() {
   const fetchUsers = async () => {
     try {
       const token = localStorage.getItem("token");
+      const baseUrl = import.meta.env.VITE_API_BASE_URL;
       const response = await fetch(`${baseUrl}/api/user/getAll`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -77,6 +78,8 @@ function AdminTasks() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
+    const baseUrl = import.meta.env.VITE_API_BASE_URL;
+    console.log("baseUrl in handle submit: ", baseUrl);
     const url = editingTask
       ? `${baseUrl}/api/tasks/update/${editingTask.id}`
       : `${baseUrl}/api/tasks/create`;
@@ -112,6 +115,7 @@ function AdminTasks() {
 
     try {
       const token = localStorage.getItem("token");
+      const baseUrl = import.meta.env.VITE_API_BASE_URL;
       const response = await fetch(`${baseUrl}/api/tasks/delete/${taskId}`, {
         method: "DELETE",
         headers: {
@@ -230,15 +234,6 @@ function AdminTasks() {
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>
-        <select
-          value={filter}
-          onChange={(e) => setFilter(e.target.value)}
-          className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-        >
-          <option value="all">All Tasks</option>
-          <option value="pending">Pending</option>
-          <option value="completed">Completed</option>
-        </select>
       </div>
 
       {/* Tasks List */}

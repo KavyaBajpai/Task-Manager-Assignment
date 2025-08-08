@@ -19,6 +19,7 @@ function AdminUsers() {
     try {
       const token = localStorage.getItem("token");
       const baseUrl = import.meta.env.VITE_API_BASE_URL;
+      console.log(baseUrl)
       const response = await fetch(`${baseUrl}/api/user/getAll`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -42,6 +43,7 @@ function AdminUsers() {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
+      const baseUrl = import.meta.env.VITE_API_BASE_URL;
       const response = await fetch(`${baseUrl}/api/user/update/${editingUser.id}`, {
         method: "PUT",
         headers: {
@@ -71,6 +73,7 @@ function AdminUsers() {
 
     try {
       const token = localStorage.getItem("token");
+      const baseUrl = import.meta.env.VITE_API_BASE_URL;
       const response = await fetch(`${baseUrl}/api/user/delete/${userId}`, {
         method: "DELETE",
         headers: {
@@ -91,9 +94,11 @@ function AdminUsers() {
 
   const handleEdit = (user) => {
     setEditingUser(user);
+    console.log("before: ", user.role)
     setFormData({
       role: user.role,
     });
+    console.log("after: ", user.role)
     setShowModal(true);
   };
 
